@@ -1,0 +1,6 @@
+@Chavez_Logistica_HostAddress = http://localhost:5096
+
+GET {{Chavez_Logistica_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
