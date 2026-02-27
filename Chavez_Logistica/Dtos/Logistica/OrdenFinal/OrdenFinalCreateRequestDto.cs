@@ -1,0 +1,1 @@
+namespace Chavez_Logistica.Dtos.Logistica.OrdenFinal; public class OrdenFinalCreateRequestDto{ public int IdRequerimiento{get;set;} public string? Observacion{get;set;} public List<OrdenFinalDetalleDto> Detalle{get;set;}=new(); public int? IdUsuario{get;set;} }

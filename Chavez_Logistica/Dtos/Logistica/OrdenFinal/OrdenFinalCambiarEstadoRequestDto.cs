@@ -1,0 +1,1 @@
+namespace Chavez_Logistica.Dtos.Logistica.OrdenFinal; public class OrdenFinalCambiarEstadoRequestDto{ public string Estado{get;set;}=null!; public int? IdUsuario{get;set;} public string? Observacion{get;set;} }

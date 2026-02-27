@@ -1,0 +1,1 @@
+using System; namespace Chavez_Logistica.Entities.Logistica; public class Compra{ public int IdCompra{get;set;} public string Codigo{get;set;}=null!; public DateTime Fecha{get;set;} public int IdProveedor{get;set;} public int IdObra{get;set;} public string Estado{get;set;}=null!; public string? Observacion{get;set;} }

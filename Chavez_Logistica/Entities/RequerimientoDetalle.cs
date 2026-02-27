@@ -1,0 +1,1 @@
+namespace Chavez_Logistica.Entities.Logistica; public class RequerimientoDetalle{ public int IdRequerimientoDetalle{get;set;} public int IdRequerimiento{get;set;} public int IdItem{get;set;} public decimal Cantidad{get;set;} public string? Observacion{get;set;} }

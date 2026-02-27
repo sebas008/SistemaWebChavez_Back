@@ -1,0 +1,1 @@
+namespace Chavez_Logistica.Dtos.Logistica.OrdenFinal; public class OrdenFinalDetalleDto{ public int? IdOrdenFinalDetalle{get;set;} public int IdItem{get;set;} public decimal Cantidad{get;set;} public string? Observacion{get;set;} }
