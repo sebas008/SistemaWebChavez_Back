@@ -8,5 +8,7 @@
         public string? Email { get; set; }
         public bool Activo { get; set; }
         public DateTime FechaCreacion { get; set; }
+        public byte[]? PasswordHash { get; set; }
+        public byte[]? PasswordSalt { get; set; }
     }
 }

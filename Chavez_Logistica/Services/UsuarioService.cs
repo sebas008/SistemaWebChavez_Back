@@ -1,6 +1,8 @@
 ﻿using Chavez_Logistica.Dtos.Usuarios;
 using Chavez_Logistica.Entities;
 using Chavez_Logistica.Interfaces;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Chavez_Logistica.Services
 {
@@ -35,6 +37,15 @@ namespace Chavez_Logistica.Services
                 Activo = true
             };
 
+            // Password obligatorio para creación. Si viene vacío, usa 123456.
+            var pw = (req.Password ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(pw))
+                pw = "123456";
+
+            // SHA2_256 compatible con SQL: HASHBYTES('SHA2_256', ...)
+            entity.PasswordHash = SHA256.HashData(Encoding.UTF8.GetBytes(pw));
+            entity.PasswordSalt = null;
+
             var id = await _repo.CrearAsync(entity, ct);
 
             return new UsuarioCreateResponseDto
@@ -65,6 +76,15 @@ namespace Chavez_Logistica.Services
             );
 
             await _repo.AsignarRolesAsync(idUsuario, rolesCsv, ct);
+        }
+
+        public async Task<List<string>> GetRolesAsync(int idUsuario, CancellationToken ct)
+        {
+            var roles = await _repo.GetRolesAsync(idUsuario, ct);
+            return roles
+                .Select(r => (r ?? string.Empty).Trim().ToUpperInvariant())
+                .Where(r => !string.IsNullOrWhiteSpace(r))
+                .ToList();
         }
 
         private static UsuarioDto MapToDto(Usuario u)

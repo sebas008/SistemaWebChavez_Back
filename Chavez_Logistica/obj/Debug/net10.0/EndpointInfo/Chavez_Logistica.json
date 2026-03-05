@@ -53,6 +53,35 @@
         }
       }
     },
+    "/api/Dashboard/kpis": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardKpisDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardKpisDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardKpisDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/inventario/almacenes": {
       "get": {
         "tags": [
@@ -2192,6 +2221,53 @@
       }
     },
     "/api/seguridad/usuarios/{idUsuario}/roles": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "post": {
         "tags": [
           "Usuario"
@@ -2567,6 +2643,36 @@
               "$ref": "#/components/schemas/CompraDetalleDto"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DashboardKpisDto": {
+        "type": "object",
+        "properties": {
+          "proveedores": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "almacenes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "usuarios": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "requerimientos": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "compras": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "atenciones": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -3517,6 +3623,10 @@
           "email": {
             "type": "string",
             "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3582,6 +3692,9 @@
   "tags": [
     {
       "name": "Auth"
+    },
+    {
+      "name": "Dashboard"
     },
     {
       "name": "Inventario"

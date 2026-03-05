@@ -11,5 +11,6 @@ namespace Chavez_Logistica.Interfaces
         Task ActualizarAsync(int idUsuario, UsuarioUpdateRequestDto req, CancellationToken ct);
 
         Task AsignarRolesAsync(int idUsuario, UsuarioAsignarRolesRequestDto req, CancellationToken ct);
+        Task<List<string>> GetRolesAsync(int idUsuario, CancellationToken ct);
     }
 }

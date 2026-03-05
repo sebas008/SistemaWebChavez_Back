@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Mz7r18wuYAU=",
+  "dgSpecHash": "plCufoKTXUA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\sebas\\Desktop\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Chavez_Logistica.csproj",
+  "projectFilePath": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Chavez_Logistica.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sebas\\.nuget\\packages\\azure.core\\1.50.0\\azure.core.1.50.0.nupkg.sha512",
     "C:\\Users\\sebas\\.nuget\\packages\\azure.identity\\1.17.1\\azure.identity.1.17.1.nupkg.sha512",
@@ -38,9 +38,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "El paquete \"Microsoft.Web.Infrastructure 2.0.0\" se restauró con \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" en lugar de la plataforma de destino del proyecto \"net10.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
-      "projectPath": "C:\\Users\\sebas\\Desktop\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Chavez_Logistica.csproj",
+      "projectPath": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Chavez_Logistica.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\sebas\\Desktop\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Chavez_Logistica.csproj",
+      "filePath": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Chavez_Logistica.csproj",
       "libraryId": "Microsoft.Web.Infrastructure",
       "targetGraphs": [
         "net10.0"

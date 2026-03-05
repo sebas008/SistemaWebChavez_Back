@@ -1429,11 +1429,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sebas\\Desktop\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Chavez_Logistica.csproj",
+      "projectUniqueName": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Chavez_Logistica.csproj",
       "projectName": "Chavez_Logistica",
-      "projectPath": "C:\\Users\\sebas\\Desktop\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Chavez_Logistica.csproj",
+      "projectPath": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Chavez_Logistica.csproj",
       "packagesPath": "C:\\Users\\sebas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sebas\\Desktop\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\obj\\",
+      "outputPath": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\vs1\\NuGetPackages"

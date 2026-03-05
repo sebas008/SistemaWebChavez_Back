@@ -47,6 +47,26 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IInventarioRepository, InventarioRepository>();
 builder.Services.AddScoped<IInventarioService, InventarioService>();
 
+// Compras
+builder.Services.AddScoped<ICompraRepository, CompraRepository>();
+builder.Services.AddScoped<ICompraService, CompraService>();
+
+// Orden Final
+builder.Services.AddScoped<IOrdenFinalRepository, OrdenFinalRepository>();
+builder.Services.AddScoped<IOrdenFinalService, OrdenFinalService>();
+
+// Recepción Compra
+builder.Services.AddScoped<IRecepcionCompraRepository, RecepcionCompraRepository>();
+builder.Services.AddScoped<IRecepcionCompraService, RecepcionCompraService>();
+
+// Recepción Obra
+builder.Services.AddScoped<IRecepcionObraRepository, RecepcionObraRepository>();
+builder.Services.AddScoped<IRecepcionObraService, RecepcionObraService>();
+
+// Atención
+builder.Services.AddScoped<IAtencionRepository, AtencionRepository>();
+builder.Services.AddScoped<IAtencionService, AtencionService>();
+
 // Maestros - Unidad de Medida
 builder.Services.AddScoped<IUnidadMedidaRepository, UnidadMedidaRepository>();
 builder.Services.AddScoped<IUnidadMedidaService, UnidadMedidaService>();

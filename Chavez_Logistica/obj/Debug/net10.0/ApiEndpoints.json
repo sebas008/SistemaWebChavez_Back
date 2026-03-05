@@ -26,6 +26,26 @@
     ]
   },
   {
+    "ContainingType": "Chavez_Logistica.Controllers.DashboardController",
+    "Method": "GetKpis",
+    "RelativePath": "api/Dashboard/kpis",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Chavez_Logistica.Controllers.DashboardController\u002BDashboardKpisDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Chavez_Logistica.Controllers.InventarioController",
     "Method": "Almacen_List",
     "RelativePath": "api/inventario/almacenes",
@@ -1249,6 +1269,32 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chavez_Logistica.Controllers.UsuarioController",
+    "Method": "ObtenerRoles",
+    "RelativePath": "api/seguridad/usuarios/{idUsuario}/roles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Chavez_Logistica.Controllers.UsuarioController",

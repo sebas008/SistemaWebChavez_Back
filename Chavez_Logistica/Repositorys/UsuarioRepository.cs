@@ -45,15 +45,18 @@ public class UsuarioRepository : IUsuarioRepository
     {
         using var conn = _db.CreateConnection();
 
-        // SP espera: @Usuario, @Nombres, @Email
+        // SP tolerante: acepta @UsuarioLogin o @Usuario, y PasswordHash si existe
         return await conn.QuerySingleAsync<int>(
             new CommandDefinition(
                 "seguridad.usp_Usuario_Crear",
                 new
                 {
-                    Usuario = usuario.UsuarioLogin, // o usuario.Usuario según tu Entity
+                    UsuarioLogin = usuario.UsuarioLogin,
+                    Usuario = usuario.UsuarioLogin,
                     usuario.Nombres,
-                    usuario.Email
+                    usuario.Email,
+                    usuario.PasswordHash,
+                    usuario.PasswordSalt
                 },
                 commandType: CommandType.StoredProcedure,
                 cancellationToken: ct
@@ -100,4 +103,29 @@ public class UsuarioRepository : IUsuarioRepository
             )
         );
     }
+
+    public async Task<IEnumerable<string>> GetRolesAsync(int idUsuario, CancellationToken ct)
+    {
+        using var conn = _db.CreateConnection();
+
+        // Lee roles directamente (no depende de SPs)
+        const string sql = @"
+SELECT r.Codigo
+FROM seguridad.UsuarioRol ur
+INNER JOIN seguridad.Rol r ON r.IdRol = ur.IdRol
+WHERE ur.IdUsuario = @IdUsuario
+  AND ISNULL(ur.Activo,1) = 1
+  AND ISNULL(r.Activo,1) = 1
+ORDER BY r.Codigo;";
+
+        return await conn.QueryAsync<string>(
+            new CommandDefinition(
+                sql,
+                new { IdUsuario = idUsuario },
+                commandType: CommandType.Text,
+                cancellationToken: ct
+            )
+        );
+    }
+
 }

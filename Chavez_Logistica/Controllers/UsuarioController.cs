@@ -61,7 +61,16 @@ namespace Chavez_Logistica.Controllers
             return NoContent();
         }
 
-        // POST: api/seguridad/usuarios/5/roles
+        
+        // GET: api/seguridad/usuarios/5/roles
+        [HttpGet("{idUsuario:int}/roles")]
+        public async Task<ActionResult<List<string>>> ObtenerRoles(int idUsuario, CancellationToken ct)
+        {
+            var roles = await _service.GetRolesAsync(idUsuario, ct);
+            return Ok(roles);
+        }
+
+// POST: api/seguridad/usuarios/5/roles
         [HttpPost("{idUsuario:int}/roles")]
         public async Task<IActionResult> AsignarRoles(
             int idUsuario,

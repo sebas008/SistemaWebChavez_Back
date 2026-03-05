@@ -5,5 +5,6 @@
         public string UsuarioLogin { get; set; } = null!;
         public string Nombres { get; set; } = null!;
         public string? Email { get; set; }
+        public string Password { get; set; } = null!;
     }
 }
