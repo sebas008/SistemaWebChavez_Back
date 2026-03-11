@@ -14,7 +14,7 @@ namespace Chavez_Logistica.Controllers;
 public class LogisticaController : ControllerBase
 {
     private readonly IRequerimientoService _requerimientos;
-    private readonly IOrdenFinalService _ordenesFinales;
+    private readonly IServiceProvider _serviceProvider;
     private readonly ICompraService _compras;
     private readonly IRecepcionCompraService _recepcionesCompra;
     private readonly IRecepcionObraService _recepcionesObra;
@@ -22,14 +22,14 @@ public class LogisticaController : ControllerBase
 
     public LogisticaController(
         IRequerimientoService requerimientos,
-        IOrdenFinalService ordenesFinales,
+        IServiceProvider serviceProvider,
         ICompraService compras,
         IRecepcionCompraService recepcionesCompra,
         IRecepcionObraService recepcionesObra,
         IAtencionService atenciones)
     {
         _requerimientos = requerimientos;
-        _ordenesFinales = ordenesFinales;
+        _serviceProvider = serviceProvider;
         _compras = compras;
         _recepcionesCompra = recepcionesCompra;
         _recepcionesObra = recepcionesObra;
@@ -67,23 +67,32 @@ public class LogisticaController : ControllerBase
         await _requerimientos.CambiarEstadoAsync(id, req, ct);
         return NoContent();
     }
+    private IOrdenFinalService GetOrdenFinalService()
+    {
+        var service = _serviceProvider.GetService<IOrdenFinalService>();
+        if (service is null)
+            throw new InvalidOperationException("No se pudo resolver IOrdenFinalService. Verifica el registro de dependencias del backend.");
+
+        return service;
+    }
+
     // ===== ORDENES FINALES =====
     [HttpGet("ordenes-finales")]
     public async Task<ActionResult<List<OrdenFinalDto>>> OrdenFinal_List([FromQuery] int? idObra, [FromQuery] string? estado, CancellationToken ct)
-        => Ok(await _ordenesFinales.ListAsync(idObra, estado, ct));
+        => Ok(await GetOrdenFinalService().ListAsync(idObra, estado, ct));
 
     [HttpGet("ordenes-finales/{id:int}")]
     public async Task<ActionResult<OrdenFinalDto>> OrdenFinal_Get(int id, CancellationToken ct)
-        => (await _ordenesFinales.GetByIdAsync(id, ct)) is { } row ? Ok(row) : NotFound();
+        => (await GetOrdenFinalService().GetByIdAsync(id, ct)) is { } row ? Ok(row) : NotFound();
 
     [HttpPost("ordenes-finales")]
     public async Task<ActionResult<OrdenFinalCreateResponseDto>> OrdenFinal_Crear([FromBody] OrdenFinalCreateRequestDto req, CancellationToken ct)
-        => Ok(await _ordenesFinales.CrearAsync(req, ct));
+        => Ok(await GetOrdenFinalService().CrearAsync(req, ct));
 
     [HttpPut("ordenes-finales/{id:int}/estado")]
     public async Task<IActionResult> OrdenFinal_Estado(int id, [FromBody] OrdenFinalCambiarEstadoRequestDto req, CancellationToken ct)
     {
-        await _ordenesFinales.CambiarEstadoAsync(id, req, ct);
+        await GetOrdenFinalService().CambiarEstadoAsync(id, req, ct);
         return NoContent();
     }
 
