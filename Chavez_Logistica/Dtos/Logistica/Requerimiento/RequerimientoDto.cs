@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Chavez_Logistica.Dtos.Logistica.Requerimiento;
 
@@ -10,6 +10,6 @@ public class RequerimientoDto
     public DateTime FechaSolicitud { get; set; }
     public string Estado { get; set; } = null!;
     public string? Observacion { get; set; }
-
+    public bool? EntregaATiempo { get; set; }
     public List<RequerimientoDetalleDto> Detalle { get; set; } = new();
 }

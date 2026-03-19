@@ -1,4 +1,4 @@
-﻿namespace Chavez_Logistica.Dtos.Maestros.Obras
+namespace Chavez_Logistica.Dtos.Maestros.Obras
 {
     public class ObraDto
     {

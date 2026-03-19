@@ -1,12 +1,53 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2A76FECC-D4FB-E518-E28F-C6D3A2E7EC73}|Chavez_Logistica.csproj|c:\\users\\sebas\\desktop\\choti\\sistemawebchavez_back\\sistemawebchavez_back\\chavez_logistica\\repositorys\\obrarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A76FECC-D4FB-E518-E28F-C6D3A2E7EC73}|Chavez_Logistica.csproj|solutionrelative:repositorys\\obrarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2A76FECC-D4FB-E518-E28F-C6D3A2E7EC73}|Chavez_Logistica.csproj|c:\\users\\sebas\\desktop\\choti\\sistemawebchavez_back\\sistemawebchavez_back\\chavez_logistica\\services\\obraservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A76FECC-D4FB-E518-E28F-C6D3A2E7EC73}|Chavez_Logistica.csproj|solutionrelative:services\\obraservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ObraService.cs",
+              "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Services\\ObraService.cs",
+              "RelativeDocumentMoniker": "Services\\ObraService.cs",
+              "ToolTip": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Services\\ObraService.cs",
+              "RelativeToolTip": "Services\\ObraService.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAawBEAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-18T19:19:37.192Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ObraRepository.cs",
+              "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Repositorys\\ObraRepository.cs",
+              "RelativeDocumentMoniker": "Repositorys\\ObraRepository.cs",
+              "ToolTip": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Repositorys\\ObraRepository.cs",
+              "RelativeToolTip": "Repositorys\\ObraRepository.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAqwBQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-18T19:12:34.098Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

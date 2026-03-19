@@ -2,7 +2,6 @@ using System.Data;
 using Dapper;
 using Chavez_Logistica.Entities.Logistica;
 using Chavez_Logistica.Interfaces;
-using Microsoft.Data.SqlClient;
 
 namespace Chavez_Logistica.Repositorys;
 
@@ -14,40 +13,14 @@ public class RequerimientoRepository : IRequerimientoRepository
     public async Task<IEnumerable<Requerimiento>> ListAsync(int? idObra, string? estado, CancellationToken ct)
     {
         using var conn = _db.CreateConnection();
-
-        try
-        {
-            // Intento 1: SP con parámetros (si tu BD la soporta)
-            return await conn.QueryAsync<Requerimiento>(
-                new CommandDefinition(
-                    "logistica.usp_Requerimiento_List",
-                    new { IdObra = idObra, Estado = estado },
-                    commandType: CommandType.StoredProcedure,
-                    cancellationToken: ct
-                )
-            );
-        }
-        catch (SqlException ex) when (ex.Number == 8146)
-        {
-            // 8146: "has no parameters and arguments were supplied"
-            // Intento 2: SP sin parámetros (tu caso actual)
-            var data = (await conn.QueryAsync<Requerimiento>(
-                new CommandDefinition(
-                    "logistica.usp_Requerimiento_List",
-                    commandType: CommandType.StoredProcedure,
-                    cancellationToken: ct
-                )
-            )).ToList();
-
-            // Filtrado en memoria para respetar el contrato del API
-            if (idObra.HasValue)
-                data = data.Where(x => x.IdObra == idObra.Value).ToList();
-
-            if (!string.IsNullOrWhiteSpace(estado))
-                data = data.Where(x => (x.Estado ?? "").Equals(estado, StringComparison.OrdinalIgnoreCase)).ToList();
-
-            return data;
-        }
+        return await conn.QueryAsync<Requerimiento>(
+            new CommandDefinition(
+                "logistica.usp_Requerimiento_List",
+                new { IdObra = idObra, Estado = estado },
+                commandType: CommandType.StoredProcedure,
+                cancellationToken: ct
+            )
+        );
     }
 
     public async Task<Requerimiento?> GetByIdAsync(int idRequerimiento, CancellationToken ct)
@@ -87,26 +60,29 @@ public class RequerimientoRepository : IRequerimientoRepository
 
         var dt = new DataTable();
         dt.Columns.Add("IdItem", typeof(int));
+        dt.Columns.Add("IdPartida", typeof(int));
         dt.Columns.Add("Cantidad", typeof(decimal));
+        dt.Columns.Add("IdUnidadMedida", typeof(int));
+        dt.Columns.Add("Comentario", typeof(string));
         dt.Columns.Add("Observacion", typeof(string));
 
         foreach (var d in detalle)
         {
             var row = dt.NewRow();
             row["IdItem"] = d.IdItem;
+            row["IdPartida"] = d.IdPartida.HasValue ? d.IdPartida.Value : DBNull.Value;
             row["Cantidad"] = d.Cantidad;
-            row["Observacion"] = (object?)d.Observacion ?? DBNull.Value;
+            row["IdUnidadMedida"] = d.IdUnidadMedida.HasValue ? d.IdUnidadMedida.Value : DBNull.Value;
+            row["Comentario"] = string.IsNullOrWhiteSpace(d.Comentario) ? DBNull.Value : d.Comentario;
+            row["Observacion"] = string.IsNullOrWhiteSpace(d.Observacion) ? DBNull.Value : d.Observacion;
             dt.Rows.Add(row);
         }
 
         var p = new DynamicParameters();
         p.Add("@IdObra", idObra);
         p.Add("@Observacion", observacion);
-        // OJO: tu SP puede usar @IdUsuario o @IdUsuarioCreador, pero NO inventamos ambos.
-        // Esto se deja tal cual lo tenías.
         p.Add("@IdUsuario", idUsuario);
-
-        p.Add("@Detalle", dt.AsTableValuedParameter("logistica.TVP_RequerimientoDetalle"));
+        p.Add("@Detalle", dt.AsTableValuedParameter("logistica.TVP_RequerimientoDetalle_V2"));
         p.Add("@IdRequerimiento", dbType: DbType.Int32, direction: ParameterDirection.Output);
         p.Add("@Codigo", dbType: DbType.String, size: 30, direction: ParameterDirection.Output);
 
@@ -122,13 +98,70 @@ public class RequerimientoRepository : IRequerimientoRepository
         return (p.Get<int>("@IdRequerimiento"), p.Get<string>("@Codigo"));
     }
 
-    public async Task CambiarEstadoAsync(int idRequerimiento, string estado, int? idUsuario, string? observacion, CancellationToken ct)
+    public async Task CambiarEstadoAsync(
+        int idRequerimiento,
+        string estado,
+        int? idUsuario,
+        string? observacion,
+        bool? entregaATiempo,
+        CancellationToken ct)
     {
         using var conn = _db.CreateConnection();
         await conn.ExecuteAsync(
             new CommandDefinition(
                 "logistica.usp_Requerimiento_CambiarEstado",
-                new { IdRequerimiento = idRequerimiento, Estado = estado, IdUsuario = idUsuario, Observacion = observacion },
+                new
+                {
+                    IdRequerimiento = idRequerimiento,
+                    Estado = estado,
+                    IdUsuario = idUsuario,
+                    Observacion = observacion,
+                    EntregaATiempo = entregaATiempo
+                },
+                commandType: CommandType.StoredProcedure,
+                cancellationToken: ct
+            )
+        );
+    }
+
+    public async Task AsignarDestinoDetalleAsync(
+        int idRequerimientoDetalle,
+        string? destino,
+        int? idUsuario,
+        CancellationToken ct)
+    {
+        using var conn = _db.CreateConnection();
+        await conn.ExecuteAsync(
+            new CommandDefinition(
+                "logistica.usp_RequerimientoDetalle_ActualizarDestino",
+                new
+                {
+                    IdRequerimientoDetalle = idRequerimientoDetalle,
+                    Destino = destino,
+                    IdUsuario = idUsuario
+                },
+                commandType: CommandType.StoredProcedure,
+                cancellationToken: ct
+            )
+        );
+    }
+
+    public async Task CambiarEstadoDetalleAsync(
+        int idRequerimientoDetalle,
+        string estado,
+        bool? entregaATiempo,
+        CancellationToken ct)
+    {
+        using var conn = _db.CreateConnection();
+        await conn.ExecuteAsync(
+            new CommandDefinition(
+                "logistica.usp_RequerimientoDetalle_CambiarEstado",
+                new
+                {
+                    IdRequerimientoDetalle = idRequerimientoDetalle,
+                    Estado = estado,
+                    EntregaATiempo = entregaATiempo
+                },
                 commandType: CommandType.StoredProcedure,
                 cancellationToken: ct
             )

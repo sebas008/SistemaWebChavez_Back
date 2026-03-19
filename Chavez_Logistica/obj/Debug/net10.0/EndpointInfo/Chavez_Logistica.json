@@ -731,155 +731,14 @@
         }
       }
     },
-    "/api/logistica/ordenes-finales": {
-      "get": {
-        "tags": [
-          "Logistica"
-        ],
-        "parameters": [
-          {
-            "name": "idObra",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "estado",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OrdenFinalDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OrdenFinalDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OrdenFinalDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Logistica"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrdenFinalCreateRequestDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrdenFinalCreateRequestDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrdenFinalCreateRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrdenFinalCreateResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrdenFinalCreateResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrdenFinalCreateResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/logistica/ordenes-finales/{id}": {
-      "get": {
-        "tags": [
-          "Logistica"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrdenFinalDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrdenFinalDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrdenFinalDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/logistica/ordenes-finales/{id}/estado": {
+    "/api/logistica/requerimientos/detalle/{idRequerimientoDetalle}/destino": {
       "put": {
         "tags": [
           "Logistica"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "idRequerimientoDetalle",
             "in": "path",
             "required": true,
             "schema": {
@@ -892,17 +751,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrdenFinalCambiarEstadoRequestDto"
+                "$ref": "#/components/schemas/RequerimientoDetalleDestinoRequestDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrdenFinalCambiarEstadoRequestDto"
+                "$ref": "#/components/schemas/RequerimientoDetalleDestinoRequestDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/OrdenFinalCambiarEstadoRequestDto"
+                "$ref": "#/components/schemas/RequerimientoDetalleDestinoRequestDto"
               }
             }
           }
@@ -914,163 +773,14 @@
         }
       }
     },
-    "/api/logistica/compras": {
-      "get": {
-        "tags": [
-          "Logistica"
-        ],
-        "parameters": [
-          {
-            "name": "idProveedor",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "idObra",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "estado",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CompraDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CompraDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CompraDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Logistica"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CompraCreateRequestDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CompraCreateRequestDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CompraCreateRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompraCreateResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompraCreateResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompraCreateResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/logistica/compras/{id}": {
-      "get": {
-        "tags": [
-          "Logistica"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompraDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompraDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompraDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/logistica/compras/{id}/estado": {
+    "/api/logistica/requerimientos/detalle/{idRequerimientoDetalle}/estado": {
       "put": {
         "tags": [
           "Logistica"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "idRequerimientoDetalle",
             "in": "path",
             "required": true,
             "schema": {
@@ -1083,17 +793,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompraCambiarEstadoRequestDto"
+                "$ref": "#/components/schemas/RequerimientoCambiarEstadoRequestDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompraCambiarEstadoRequestDto"
+                "$ref": "#/components/schemas/RequerimientoCambiarEstadoRequestDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CompraCambiarEstadoRequestDto"
+                "$ref": "#/components/schemas/RequerimientoCambiarEstadoRequestDto"
               }
             }
           }
@@ -1105,28 +815,11 @@
         }
       }
     },
-    "/api/logistica/recepciones-compra": {
+    "/api/logistica/compras-bandeja": {
       "get": {
         "tags": [
           "Logistica"
         ],
-        "parameters": [
-          {
-            "name": "idCompra",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "estado",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -1135,7 +828,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/RecepcionCompraDto"
+                    "$ref": "#/components/schemas/CompraBandejaDto"
                   }
                 }
               },
@@ -1143,7 +836,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/RecepcionCompraDto"
+                    "$ref": "#/components/schemas/CompraBandejaDto"
                   }
                 }
               },
@@ -1151,305 +844,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/RecepcionCompraDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Logistica"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecepcionCompraRegistrarRequestDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecepcionCompraRegistrarRequestDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecepcionCompraRegistrarRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecepcionCompraRegistrarResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecepcionCompraRegistrarResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecepcionCompraRegistrarResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/logistica/recepciones-compra/{id}": {
-      "get": {
-        "tags": [
-          "Logistica"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecepcionCompraDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecepcionCompraDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecepcionCompraDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/logistica/recepciones-obra": {
-      "get": {
-        "tags": [
-          "Logistica"
-        ],
-        "parameters": [
-          {
-            "name": "idOrdenFinal",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "estado",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/RecepcionObraDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/RecepcionObraDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/RecepcionObraDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Logistica"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecepcionObraRegistrarRequestDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecepcionObraRegistrarRequestDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecepcionObraRegistrarRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecepcionObraRegistrarResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecepcionObraRegistrarResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecepcionObraRegistrarResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/logistica/recepciones-obra/{id}": {
-      "get": {
-        "tags": [
-          "Logistica"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecepcionObraDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecepcionObraDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecepcionObraDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/logistica/atenciones": {
-      "get": {
-        "tags": [
-          "Logistica"
-        ],
-        "parameters": [
-          {
-            "name": "idObra",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "idAlmacenOrigen",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "idAlmacenDestino",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "estado",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AtencionDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AtencionDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AtencionDto"
+                    "$ref": "#/components/schemas/CompraBandejaDto"
                   }
                 }
               }
@@ -1458,87 +853,37 @@
         }
       }
     },
-    "/api/logistica/atenciones/{id}": {
+    "/api/logistica/atenciones-bandeja": {
       "get": {
         "tags": [
           "Logistica"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/AtencionDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AtencionBandejaDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AtencionDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AtencionBandejaDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AtencionDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/logistica/atenciones/desde-almacen-interno": {
-      "post": {
-        "tags": [
-          "Logistica"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AtencionRegistrarRequestDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AtencionRegistrarRequestDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AtencionRegistrarRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/AtencionRegistrarResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AtencionRegistrarResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AtencionRegistrarResponseDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AtencionBandejaDto"
+                  }
                 }
               }
             }
@@ -2388,260 +1733,71 @@
         },
         "additionalProperties": false
       },
-      "AtencionDetalleDto": {
+      "AtencionBandejaDto": {
         "type": "object",
         "properties": {
-          "idAtencionDetalle": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "idItem": {
+          "idRequerimientoDetalle": {
             "type": "integer",
             "format": "int32"
           },
-          "cantidadPlanificada": {
-            "type": "number",
-            "format": "double"
-          },
-          "cantidadAtendida": {
-            "type": "number",
-            "format": "double"
-          },
-          "comentario": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "AtencionDto": {
-        "type": "object",
-        "properties": {
-          "idAtencion": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "codigo": {
+          "nroReq": {
             "type": "string",
             "nullable": true
           },
-          "fecha": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "idObra": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idAlmacenOrigen": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idAlmacenDestino": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "metodoAtencion": {
+          "nomObra": {
             "type": "string",
             "nullable": true
           },
-          "estado": {
+          "item": {
             "type": "string",
             "nullable": true
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          },
-          "detalle": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AtencionDetalleDto"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "AtencionRegistrarRequestDto": {
-        "type": "object",
-        "properties": {
-          "idObra": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idAlmacenOrigen": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idAlmacenDestino": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "metodoAtencion": {
-            "type": "string",
-            "nullable": true
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          },
-          "detalle": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AtencionDetalleDto"
-            },
-            "nullable": true
-          },
-          "idUsuario": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "AtencionRegistrarResponseDto": {
-        "type": "object",
-        "properties": {
-          "idAtencion": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "codigo": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CompraCambiarEstadoRequestDto": {
-        "type": "object",
-        "properties": {
-          "estado": {
-            "type": "string",
-            "nullable": true
-          },
-          "idUsuario": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CompraCreateRequestDto": {
-        "type": "object",
-        "properties": {
-          "idProveedor": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idObra": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          },
-          "detalle": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CompraDetalleDto"
-            },
-            "nullable": true
-          },
-          "idUsuario": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CompraCreateResponseDto": {
-        "type": "object",
-        "properties": {
-          "idCompra": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "codigo": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CompraDetalleDto": {
-        "type": "object",
-        "properties": {
-          "idCompraDetalle": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "idItem": {
-            "type": "integer",
-            "format": "int32"
           },
           "cantidad": {
             "type": "number",
             "format": "double"
           },
-          "precioUnitario": {
-            "type": "number",
-            "format": "double"
+          "fecha": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           },
-          "observacion": {
+          "estado": {
             "type": "string",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "CompraDto": {
+      "CompraBandejaDto": {
         "type": "object",
         "properties": {
-          "idCompra": {
+          "idRequerimientoDetalle": {
             "type": "integer",
             "format": "int32"
           },
-          "codigo": {
+          "nroReq": {
             "type": "string",
             "nullable": true
+          },
+          "nomObra": {
+            "type": "string",
+            "nullable": true
+          },
+          "item": {
+            "type": "string",
+            "nullable": true
+          },
+          "cantidad": {
+            "type": "number",
+            "format": "double"
           },
           "fecha": {
             "type": "string",
-            "format": "date-time"
-          },
-          "idProveedor": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idObra": {
-            "type": "integer",
-            "format": "int32"
+            "format": "date-time",
+            "nullable": true
           },
           "estado": {
             "type": "string",
-            "nullable": true
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          },
-          "detalle": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CompraDetalleDto"
-            },
             "nullable": true
           }
         },
@@ -2673,6 +1829,22 @@
           "atenciones": {
             "type": "integer",
             "format": "int32"
+          },
+          "porcentajeEntregaCompleta": {
+            "type": "number",
+            "format": "double"
+          },
+          "porcentajeEntregaATiempo": {
+            "type": "number",
+            "format": "double"
+          },
+          "porcentajeCompra": {
+            "type": "number",
+            "format": "double"
+          },
+          "porcentajeAlmacenInterno": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -2952,6 +2124,10 @@
       "ObraUpdateRequestDto": {
         "type": "object",
         "properties": {
+          "codigo": {
+            "type": "string",
+            "nullable": true
+          },
           "nombre": {
             "type": "string",
             "nullable": true
@@ -2962,129 +2138,6 @@
           },
           "activa": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "OrdenFinalCambiarEstadoRequestDto": {
-        "type": "object",
-        "properties": {
-          "estado": {
-            "type": "string",
-            "nullable": true
-          },
-          "idUsuario": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "OrdenFinalCreateRequestDto": {
-        "type": "object",
-        "properties": {
-          "idRequerimiento": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          },
-          "detalle": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OrdenFinalDetalleDto"
-            },
-            "nullable": true
-          },
-          "idUsuario": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "OrdenFinalCreateResponseDto": {
-        "type": "object",
-        "properties": {
-          "idOrdenFinal": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "codigo": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "OrdenFinalDetalleDto": {
-        "type": "object",
-        "properties": {
-          "idOrdenFinalDetalle": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "idItem": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "cantidad": {
-            "type": "number",
-            "format": "double"
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "OrdenFinalDto": {
-        "type": "object",
-        "properties": {
-          "idOrdenFinal": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "codigo": {
-            "type": "string",
-            "nullable": true
-          },
-          "idRequerimiento": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idObra": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fecha": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "estado": {
-            "type": "string",
-            "nullable": true
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          },
-          "detalle": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OrdenFinalDetalleDto"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3175,238 +2228,6 @@
         },
         "additionalProperties": false
       },
-      "RecepcionCompraDetalleDto": {
-        "type": "object",
-        "properties": {
-          "idRecepcionCompraDetalle": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "idCompraDetalle": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idItem": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "cantidadRecibida": {
-            "type": "number",
-            "format": "double"
-          },
-          "comentario": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RecepcionCompraDto": {
-        "type": "object",
-        "properties": {
-          "idRecepcionCompra": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "codigo": {
-            "type": "string",
-            "nullable": true
-          },
-          "idCompra": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idAlmacenDestino": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fechaRecepcion": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "estado": {
-            "type": "string",
-            "nullable": true
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          },
-          "detalle": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RecepcionCompraDetalleDto"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RecepcionCompraRegistrarRequestDto": {
-        "type": "object",
-        "properties": {
-          "idCompra": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idAlmacenDestino": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          },
-          "detalle": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RecepcionCompraDetalleDto"
-            },
-            "nullable": true
-          },
-          "idUsuario": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RecepcionCompraRegistrarResponseDto": {
-        "type": "object",
-        "properties": {
-          "idRecepcionCompra": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "codigo": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RecepcionObraDetalleDto": {
-        "type": "object",
-        "properties": {
-          "idRecepcionObraDetalle": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "idOrdenFinalDetalle": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idItem": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "cantidadRecibida": {
-            "type": "number",
-            "format": "double"
-          },
-          "comentario": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RecepcionObraDto": {
-        "type": "object",
-        "properties": {
-          "idRecepcionObra": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "codigo": {
-            "type": "string",
-            "nullable": true
-          },
-          "idOrdenFinal": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idAlmacenOrigen": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idAlmacenDestino": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fechaRecepcion": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "estado": {
-            "type": "string",
-            "nullable": true
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          },
-          "detalle": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RecepcionObraDetalleDto"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RecepcionObraRegistrarRequestDto": {
-        "type": "object",
-        "properties": {
-          "idOrdenFinal": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idAlmacenOrigen": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idAlmacenDestino": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          },
-          "detalle": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RecepcionObraDetalleDto"
-            },
-            "nullable": true
-          },
-          "idUsuario": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RecepcionObraRegistrarResponseDto": {
-        "type": "object",
-        "properties": {
-          "idRecepcionObra": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "codigo": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "RequerimientoCambiarEstadoRequestDto": {
         "type": "object",
         "properties": {
@@ -3421,6 +2242,10 @@
           },
           "observacion": {
             "type": "string",
+            "nullable": true
+          },
+          "entregaATiempo": {
+            "type": "boolean",
             "nullable": true
           }
         },
@@ -3466,6 +2291,21 @@
         },
         "additionalProperties": false
       },
+      "RequerimientoDetalleDestinoRequestDto": {
+        "type": "object",
+        "properties": {
+          "destino": {
+            "type": "string",
+            "nullable": true
+          },
+          "idUsuario": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "RequerimientoDetalleDto": {
         "type": "object",
         "properties": {
@@ -3478,11 +2318,49 @@
             "type": "integer",
             "format": "int32"
           },
+          "idPartida": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idUnidadMedida": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
           "cantidad": {
             "type": "number",
             "format": "double"
           },
+          "comentario": {
+            "type": "string",
+            "nullable": true
+          },
           "observacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "destino": {
+            "type": "string",
+            "nullable": true
+          },
+          "estadoItem": {
+            "type": "string",
+            "nullable": true
+          },
+          "entregaATiempo": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "partidaNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "unidadNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "itemNombre": {
             "type": "string",
             "nullable": true
           }
@@ -3514,6 +2392,10 @@
           },
           "observacion": {
             "type": "string",
+            "nullable": true
+          },
+          "entregaATiempo": {
+            "type": "boolean",
             "nullable": true
           },
           "detalle": {

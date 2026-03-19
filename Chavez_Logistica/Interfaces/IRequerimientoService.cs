@@ -1,1 +1,13 @@
-using Chavez_Logistica.Dtos.Logistica.Requerimiento; namespace Chavez_Logistica.Interfaces; public interface IRequerimientoService{ Task<List<RequerimientoDto>> ListAsync(int? idObra,string? estado,CancellationToken ct); Task<RequerimientoDto?> GetByIdAsync(int idRequerimiento,CancellationToken ct); Task<RequerimientoCreateResponseDto> CrearAsync(RequerimientoCreateRequestDto req,CancellationToken ct); Task CambiarEstadoAsync(int idRequerimiento,RequerimientoCambiarEstadoRequestDto req,CancellationToken ct);}
+using Chavez_Logistica.Dtos.Logistica.Requerimiento;
+
+namespace Chavez_Logistica.Interfaces;
+
+public interface IRequerimientoService
+{
+    Task<List<RequerimientoDto>> ListAsync(int? idObra, string? estado, CancellationToken ct);
+    Task<RequerimientoDto?> GetByIdAsync(int idRequerimiento, CancellationToken ct);
+    Task<RequerimientoCreateResponseDto> CrearAsync(RequerimientoCreateRequestDto req, CancellationToken ct);
+    Task CambiarEstadoAsync(int idRequerimiento, RequerimientoCambiarEstadoRequestDto req, CancellationToken ct);
+    Task AsignarDestinoDetalleAsync(int idRequerimientoDetalle, RequerimientoDetalleDestinoRequestDto req, CancellationToken ct);
+    Task CambiarEstadoDetalleAsync(int idRequerimientoDetalle, RequerimientoCambiarEstadoRequestDto req, CancellationToken ct);
+}
