@@ -23,17 +23,9 @@ public class ObraService : IObraService
     {
         if (string.IsNullOrWhiteSpace(req.Codigo)) throw new ArgumentException("Código es obligatorio.");
         if (string.IsNullOrWhiteSpace(req.Nombre)) throw new ArgumentException("Nombre es obligatorio.");
-
-        var entity = new Obra
-        {
-            Codigo = req.Codigo.Trim(),
-            Nombre = req.Nombre.Trim(),
-            Ubicacion = string.IsNullOrWhiteSpace(req.Ubicacion) ? null : req.Ubicacion.Trim(),
-            Activa = true
-        };
-
         try
         {
+            var entity = new Obra { Codigo = req.Codigo.Trim().ToUpperInvariant(), Nombre = req.Nombre.Trim(), Ubicacion = req.Ubicacion?.Trim(), Activa = true };
             var id = await _repo.CrearAsync(entity, ct);
             return new ObraCreateResponseDto { IdObra = id };
         }
@@ -47,17 +39,9 @@ public class ObraService : IObraService
     {
         if (string.IsNullOrWhiteSpace(req.Codigo)) throw new ArgumentException("Código es obligatorio.");
         if (string.IsNullOrWhiteSpace(req.Nombre)) throw new ArgumentException("Nombre es obligatorio.");
-
-        var entity = new Obra
-        {
-            Codigo = req.Codigo.Trim(),
-            Nombre = req.Nombre.Trim(),
-            Ubicacion = string.IsNullOrWhiteSpace(req.Ubicacion) ? null : req.Ubicacion.Trim(),
-            Activa = req.Activa
-        };
-
         try
         {
+            var entity = new Obra { Codigo = req.Codigo.Trim().ToUpperInvariant(), Nombre = req.Nombre.Trim(), Ubicacion = req.Ubicacion?.Trim(), Activa = req.Activa };
             await _repo.ActualizarAsync(idObra, entity, ct);
         }
         catch (SqlException ex) when (ex.Number is 2601 or 2627)
@@ -66,13 +50,5 @@ public class ObraService : IObraService
         }
     }
 
-    private static ObraDto Map(Obra o) => new()
-    {
-        IdObra = o.IdObra,
-        Codigo = o.Codigo,
-        Nombre = o.Nombre,
-        Ubicacion = o.Ubicacion,
-        Activa = o.Activa,
-        FechaCreacion = o.FechaCreacion
-    };
+    private static ObraDto Map(Obra o) => new() { IdObra = o.IdObra, Codigo = o.Codigo, Nombre = o.Nombre, Ubicacion = o.Ubicacion, Activa = o.Activa, FechaCreacion = o.FechaCreacion };
 }

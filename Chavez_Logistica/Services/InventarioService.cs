@@ -1,4 +1,4 @@
-﻿using Chavez_Logistica.Dtos.Inventario.Almacen;
+using Chavez_Logistica.Dtos.Inventario.Almacen;
 using Chavez_Logistica.Dtos.Inventario.Item;
 using Chavez_Logistica.Dtos.Inventario.Kardex;
 using Chavez_Logistica.Dtos.Inventario.Stock;
@@ -89,9 +89,12 @@ public class InventarioService : IInventarioService
         if (string.IsNullOrWhiteSpace(req.Descripcion))
             throw new ArgumentException("Descripcion es obligatoria.");
 
+        // La BD no permite Partida NULL. Si el front aún no la envía, usamos la descripción como fallback seguro.
+        var partida = string.IsNullOrWhiteSpace(req.Partida) ? req.Descripcion.Trim() : req.Partida.Trim();
+
         var entity = new Item
         {
-            Partida = string.IsNullOrWhiteSpace(req.Partida) ? null : req.Partida.Trim(),
+            Partida = partida,
             Descripcion = req.Descripcion.Trim(),
             IdUnidadMedida = req.IdUnidadMedida,
             Activo = true
@@ -108,9 +111,11 @@ public class InventarioService : IInventarioService
         if (string.IsNullOrWhiteSpace(req.Descripcion))
             throw new ArgumentException("Descripcion es obligatoria.");
 
+        var partida = string.IsNullOrWhiteSpace(req.Partida) ? req.Descripcion.Trim() : req.Partida.Trim();
+
         var entity = new Item
         {
-            Partida = string.IsNullOrWhiteSpace(req.Partida) ? null : req.Partida.Trim(),
+            Partida = partida,
             Descripcion = req.Descripcion.Trim(),
             IdUnidadMedida = req.IdUnidadMedida,
             Activo = req.Activo
@@ -137,19 +142,15 @@ public class InventarioService : IInventarioService
         var rows = await _repo.Kardex_ListAsync(idAlmacen, idItem, desde, hasta, ct);
         return rows.Select(k => new KardexDto
         {
-            IdKardex = k.IdKardex,
             Fecha = k.Fecha,
+            TipoMovimiento = k.TipoMovimiento,
             IdAlmacen = k.IdAlmacen,
             IdItem = k.IdItem,
-            TipoMov = k.TipoMov,
             Cantidad = k.Cantidad,
-            Referencia = k.Referencia,
-            Observacion = k.Observacion,
-            IdUsuario = k.IdUsuario
+            Referencia = k.Referencia
         }).ToList();
     }
 
-    // ---------------- MAPS ----------------
     private static AlmacenDto Map(Almacen a) => new()
     {
         IdAlmacen = a.IdAlmacen,

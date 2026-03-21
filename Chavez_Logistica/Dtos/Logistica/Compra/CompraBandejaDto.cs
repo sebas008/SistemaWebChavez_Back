@@ -1,4 +1,5 @@
 namespace Chavez_Logistica.Dtos.Logistica.Compra;
+
 public class CompraBandejaDto
 {
     public int IdRequerimientoDetalle { get; set; }

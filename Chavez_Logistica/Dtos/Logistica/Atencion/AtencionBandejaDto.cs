@@ -1,4 +1,5 @@
 namespace Chavez_Logistica.Dtos.Logistica.Atencion;
+
 public class AtencionBandejaDto
 {
     public int IdRequerimientoDetalle { get; set; }

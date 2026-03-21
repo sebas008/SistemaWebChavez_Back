@@ -23,41 +23,34 @@ public class RequerimientoService : IRequerimientoService
             IdObra = r.IdObra,
             FechaSolicitud = r.FechaSolicitud,
             Estado = r.Estado,
-            Observacion = r.Observacion,
-            EntregaATiempo = r.EntregaATiempo
+            Observacion = r.Observacion
         }).ToList();
 
     public async Task<RequerimientoDto?> GetByIdAsync(int idRequerimiento, CancellationToken ct)
     {
-        var header = await _repo.GetByIdAsync(idRequerimiento, ct);
-        if (header == null) return null;
+        var h = await _repo.GetByIdAsync(idRequerimiento, ct);
+        if (h == null) return null;
 
-        var detalle = await _repo.Detalle_ListByRequerimientoAsync(idRequerimiento, ct);
+        var det = await _repo.Detalle_ListByRequerimientoAsync(idRequerimiento, ct);
 
         return new RequerimientoDto
         {
-            IdRequerimiento = header.IdRequerimiento,
-            Codigo = header.Codigo,
-            IdObra = header.IdObra,
-            FechaSolicitud = header.FechaSolicitud,
-            Estado = header.Estado,
-            Observacion = header.Observacion,
-            EntregaATiempo = header.EntregaATiempo,
-            Detalle = detalle.Select(d => new RequerimientoDetalleDto
+            IdRequerimiento = h.IdRequerimiento,
+            Codigo = h.Codigo,
+            IdObra = h.IdObra,
+            FechaSolicitud = h.FechaSolicitud,
+            Estado = h.Estado,
+            Observacion = h.Observacion,
+            Detalle = det.Select(d => new RequerimientoDetalleDto
             {
                 IdRequerimientoDetalle = d.IdRequerimientoDetalle,
                 IdItem = d.IdItem,
                 IdPartida = d.IdPartida,
-                IdUnidadMedida = d.IdUnidadMedida,
                 Cantidad = d.Cantidad,
+                IdUnidadMedida = d.IdUnidadMedida,
                 Comentario = d.Comentario,
                 Observacion = d.Observacion,
-                Destino = d.Destino,
-                EstadoItem = d.EstadoItem,
-                EntregaATiempo = d.EntregaATiempo,
-                PartidaNombre = d.PartidaNombre,
-                UnidadNombre = d.UnidadNombre,
-                ItemNombre = d.ItemNombre
+                Destino = d.Destino
             }).ToList()
         };
     }
@@ -77,12 +70,12 @@ public class RequerimientoService : IRequerimientoService
                 throw new InvalidOperationException("Logística no puede crear requerimientos; solo puede ver la bandeja y definir destino por ítem.");
         }
 
-        var detalle = req.Detalle.Select(d => new RequerimientoDetalle
+        var det = req.Detalle.Select(d => new RequerimientoDetalle
         {
             IdItem = d.IdItem,
             IdPartida = d.IdPartida,
-            IdUnidadMedida = d.IdUnidadMedida,
             Cantidad = d.Cantidad,
+            IdUnidadMedida = d.IdUnidadMedida,
             Comentario = string.IsNullOrWhiteSpace(d.Comentario) ? null : d.Comentario.Trim(),
             Observacion = string.IsNullOrWhiteSpace(d.Observacion) ? null : d.Observacion.Trim()
         });
@@ -91,8 +84,9 @@ public class RequerimientoService : IRequerimientoService
             req.IdObra,
             string.IsNullOrWhiteSpace(req.Observacion) ? null : req.Observacion.Trim(),
             req.IdUsuario,
-            detalle,
-            ct);
+            det,
+            ct
+        );
 
         return new RequerimientoCreateResponseDto
         {
@@ -102,29 +96,16 @@ public class RequerimientoService : IRequerimientoService
     }
 
     public async Task CambiarEstadoAsync(int idRequerimiento, RequerimientoCambiarEstadoRequestDto req, CancellationToken ct)
-    {
-        var estado = (req.Estado ?? string.Empty).Trim().ToUpperInvariant();
-        if (string.IsNullOrWhiteSpace(estado))
-            throw new ArgumentException("Estado es obligatorio.");
-
-        bool? entregaATiempo = estado is "APROBADO" or "ATENDIDO" or "ENTREGADO"
-            ? req.EntregaATiempo
-            : null;
-
-        await _repo.CambiarEstadoAsync(
+        => await _repo.CambiarEstadoAsync(
             idRequerimiento,
-            estado,
+            req.Estado.Trim().ToUpperInvariant(),
             req.IdUsuario,
             string.IsNullOrWhiteSpace(req.Observacion) ? null : req.Observacion.Trim(),
-            entregaATiempo,
             ct);
-    }
 
     public async Task AsignarDestinoDetalleAsync(int idRequerimientoDetalle, RequerimientoDetalleDestinoRequestDto req, CancellationToken ct)
     {
-        var destino = string.IsNullOrWhiteSpace(req.Destino)
-            ? null
-            : req.Destino.Trim().ToUpperInvariant();
+        var destino = string.IsNullOrWhiteSpace(req.Destino) ? null : req.Destino.Trim().ToUpperInvariant();
 
         if (destino is not null && destino is not ("COMPRA" or "ALMACEN_INTERNO"))
             throw new ArgumentException("Destino inválido.");
@@ -132,14 +113,14 @@ public class RequerimientoService : IRequerimientoService
         await _repo.AsignarDestinoDetalleAsync(idRequerimientoDetalle, destino, req.IdUsuario, ct);
     }
 
-    public async Task CambiarEstadoDetalleAsync(int idRequerimientoDetalle, RequerimientoCambiarEstadoRequestDto req, CancellationToken ct)
+    public async Task CambiarEstadoDetalleAsync(int idRequerimientoDetalle, RequerimientoDetalleCambiarEstadoRequestDto req, CancellationToken ct)
     {
-        var estado = (req.Estado ?? string.Empty).Trim().ToUpperInvariant();
-        if (string.IsNullOrWhiteSpace(estado))
-            throw new ArgumentException("Estado es obligatorio.");
+        if (string.IsNullOrWhiteSpace(req.Estado)) throw new ArgumentException("Estado es obligatorio.");
 
-        bool? entregaATiempo = estado == "ENTREGADO" ? req.EntregaATiempo : null;
-
-        await _repo.CambiarEstadoDetalleAsync(idRequerimientoDetalle, estado, entregaATiempo, ct);
+        await _repo.CambiarEstadoDetalleAsync(
+            idRequerimientoDetalle,
+            req.Estado.Trim().ToUpperInvariant(),
+            req.EntregaATiempo,
+            ct);
     }
 }

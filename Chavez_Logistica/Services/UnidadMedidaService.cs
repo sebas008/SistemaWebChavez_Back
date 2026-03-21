@@ -1,4 +1,4 @@
-﻿using Chavez_Logistica.Dtos.Maestros.UnidadMedida;
+using Chavez_Logistica.Dtos.Maestros.UnidadMedida;
 using Chavez_Logistica.Entities;
 using Chavez_Logistica.Interfaces;
 
@@ -30,7 +30,8 @@ public class UnidadMedidaService : IUnidadMedidaService
         var entity = new UnidadMedida
         {
             Codigo = req.Codigo.Trim().ToUpperInvariant(),
-            Nombre = req.Nombre.Trim()
+            Nombre = req.Nombre.Trim(),
+            Activo = true
         };
 
         var id = await _repo.CrearAsync(entity, ct);
@@ -42,13 +43,19 @@ public class UnidadMedidaService : IUnidadMedidaService
         if (req == null) throw new ArgumentNullException(nameof(req));
         if (string.IsNullOrWhiteSpace(req.Nombre)) throw new ArgumentException("Nombre es obligatorio.");
 
-        await _repo.ActualizarAsync(idUnidadMedida, req.Nombre.Trim(), ct);
+        await _repo.ActualizarAsync(idUnidadMedida, new UnidadMedida
+        {
+            Codigo = string.IsNullOrWhiteSpace(req.Codigo) ? string.Empty : req.Codigo.Trim().ToUpperInvariant(),
+            Nombre = req.Nombre.Trim(),
+            Activo = req.Activo
+        }, ct);
     }
 
     private static UnidadMedidaDto Map(UnidadMedida u) => new()
     {
         IdUnidadMedida = u.IdUnidadMedida,
         Codigo = u.Codigo,
-        Nombre = u.Nombre
+        Nombre = u.Nombre,
+        Activo = u.Activo
     };
 }

@@ -1,7 +1,8 @@
 using System.Data;
-using Dapper;
 using Chavez_Logistica.Entities;
 using Chavez_Logistica.Interfaces;
+using Dapper;
+using Microsoft.Data.SqlClient;
 
 namespace Chavez_Logistica.Repositorys;
 
@@ -17,8 +18,7 @@ public class PartidaRepository : IPartidaRepository
             "maestros.usp_Partida_List",
             new { SoloActivas = soloActivas },
             commandType: CommandType.StoredProcedure,
-            cancellationToken: ct
-        ));
+            cancellationToken: ct));
     }
 
     public async Task<Partida?> GetByIdAsync(int idPartida, CancellationToken ct)
@@ -28,29 +28,26 @@ public class PartidaRepository : IPartidaRepository
             "maestros.usp_Partida_GetById",
             new { IdPartida = idPartida },
             commandType: CommandType.StoredProcedure,
-            cancellationToken: ct
-        ));
+            cancellationToken: ct));
     }
 
-    public async Task<int> CrearAsync(string nombre, CancellationToken ct)
+    public async Task<int> CrearAsync(Partida entity, CancellationToken ct)
     {
         using var conn = _db.CreateConnection();
         return await conn.QuerySingleAsync<int>(new CommandDefinition(
             "maestros.usp_Partida_Crear",
-            new { Nombre = nombre },
+            new { entity.Nombre },
             commandType: CommandType.StoredProcedure,
-            cancellationToken: ct
-        ));
+            cancellationToken: ct));
     }
 
-    public async Task ActualizarAsync(int idPartida, string nombre, bool activo, CancellationToken ct)
+    public async Task ActualizarAsync(int idPartida, Partida entity, CancellationToken ct)
     {
         using var conn = _db.CreateConnection();
         await conn.ExecuteAsync(new CommandDefinition(
             "maestros.usp_Partida_Actualizar",
-            new { IdPartida = idPartida, Nombre = nombre, Activo = activo },
+            new { IdPartida = idPartida, entity.Nombre, Activo = entity.Activo },
             commandType: CommandType.StoredProcedure,
-            cancellationToken: ct
-        ));
+            cancellationToken: ct));
     }
 }

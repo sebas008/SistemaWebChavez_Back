@@ -82,6 +82,35 @@
         }
       }
     },
+    "/api/Dashboard/indicadores-requerimientos": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardIndicadoresDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardIndicadoresDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardIndicadoresDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/inventario/almacenes": {
       "get": {
         "tags": [
@@ -793,17 +822,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RequerimientoCambiarEstadoRequestDto"
+                "$ref": "#/components/schemas/RequerimientoDetalleCambiarEstadoRequestDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/RequerimientoCambiarEstadoRequestDto"
+                "$ref": "#/components/schemas/RequerimientoDetalleCambiarEstadoRequestDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/RequerimientoCambiarEstadoRequestDto"
+                "$ref": "#/components/schemas/RequerimientoDetalleCambiarEstadoRequestDto"
               }
             }
           }
@@ -887,6 +916,189 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/logistica/ordenes-finales": {
+      "get": {
+        "tags": [
+          "Logistica"
+        ],
+        "parameters": [
+          {
+            "name": "idObra",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "estado",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrdenFinalDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrdenFinalDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrdenFinalDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Logistica"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenFinalCreateRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenFinalCreateRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenFinalCreateRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdenFinalCreateResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdenFinalCreateResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdenFinalCreateResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/logistica/ordenes-finales/{id}": {
+      "get": {
+        "tags": [
+          "Logistica"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdenFinalDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdenFinalDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdenFinalDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/logistica/ordenes-finales/{id}/estado": {
+      "put": {
+        "tags": [
+          "Logistica"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenFinalCambiarEstadoRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenFinalCambiarEstadoRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenFinalCambiarEstadoRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -1401,6 +1613,179 @@
         }
       }
     },
+    "/api/maestros/partidas": {
+      "get": {
+        "tags": [
+          "Maestros"
+        ],
+        "parameters": [
+          {
+            "name": "soloActivas",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PartidaDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PartidaDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PartidaDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Maestros"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartidaCreateRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartidaCreateRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartidaCreateRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartidaCreateResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartidaCreateResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartidaCreateResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/maestros/partidas/{id}": {
+      "get": {
+        "tags": [
+          "Maestros"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartidaDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartidaDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartidaDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Maestros"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartidaUpdateRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartidaUpdateRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartidaUpdateRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/seguridad/usuarios": {
       "get": {
         "tags": [
@@ -1803,6 +2188,28 @@
         },
         "additionalProperties": false
       },
+      "DashboardIndicadoresDto": {
+        "type": "object",
+        "properties": {
+          "entregaCompleta": {
+            "type": "number",
+            "format": "double"
+          },
+          "entregaATiempo": {
+            "type": "number",
+            "format": "double"
+          },
+          "compra": {
+            "type": "number",
+            "format": "double"
+          },
+          "almacenInterno": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "DashboardKpisDto": {
         "type": "object",
         "properties": {
@@ -1829,22 +2236,6 @@
           "atenciones": {
             "type": "integer",
             "format": "int32"
-          },
-          "porcentajeEntregaCompleta": {
-            "type": "number",
-            "format": "double"
-          },
-          "porcentajeEntregaATiempo": {
-            "type": "number",
-            "format": "double"
-          },
-          "porcentajeCompra": {
-            "type": "number",
-            "format": "double"
-          },
-          "porcentajeAlmacenInterno": {
-            "type": "number",
-            "format": "double"
           }
         },
         "additionalProperties": false
@@ -1929,13 +2320,13 @@
       "KardexDto": {
         "type": "object",
         "properties": {
-          "idKardex": {
-            "type": "integer",
-            "format": "int32"
-          },
           "fecha": {
             "type": "string",
             "format": "date-time"
+          },
+          "tipoMovimiento": {
+            "type": "string",
+            "nullable": true
           },
           "idAlmacen": {
             "type": "integer",
@@ -1945,25 +2336,12 @@
             "type": "integer",
             "format": "int32"
           },
-          "tipoMov": {
-            "type": "string",
-            "nullable": true
-          },
           "cantidad": {
             "type": "number",
             "format": "double"
           },
           "referencia": {
             "type": "string",
-            "nullable": true
-          },
-          "observacion": {
-            "type": "string",
-            "nullable": true
-          },
-          "idUsuario": {
-            "type": "integer",
-            "format": "int32",
             "nullable": true
           }
         },
@@ -2142,6 +2520,179 @@
         },
         "additionalProperties": false
       },
+      "OrdenFinalCambiarEstadoRequestDto": {
+        "type": "object",
+        "properties": {
+          "estado": {
+            "type": "string",
+            "nullable": true
+          },
+          "idUsuario": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "observacion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrdenFinalCreateRequestDto": {
+        "type": "object",
+        "properties": {
+          "idRequerimiento": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "observacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "detalle": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrdenFinalDetalleDto"
+            },
+            "nullable": true
+          },
+          "idUsuario": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrdenFinalCreateResponseDto": {
+        "type": "object",
+        "properties": {
+          "idOrdenFinal": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "codigo": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrdenFinalDetalleDto": {
+        "type": "object",
+        "properties": {
+          "idOrdenFinalDetalle": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idItem": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cantidad": {
+            "type": "number",
+            "format": "double"
+          },
+          "observacion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrdenFinalDto": {
+        "type": "object",
+        "properties": {
+          "idOrdenFinal": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "codigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "idRequerimiento": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idObra": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "estado": {
+            "type": "string",
+            "nullable": true
+          },
+          "observacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "detalle": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrdenFinalDetalleDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartidaCreateRequestDto": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartidaCreateResponseDto": {
+        "type": "object",
+        "properties": {
+          "idPartida": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartidaDto": {
+        "type": "object",
+        "properties": {
+          "idPartida": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "activo": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartidaUpdateRequestDto": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "activo": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
       "ProveedorCreateRequestDto": {
         "type": "object",
         "properties": {
@@ -2291,6 +2842,25 @@
         },
         "additionalProperties": false
       },
+      "RequerimientoDetalleCambiarEstadoRequestDto": {
+        "type": "object",
+        "properties": {
+          "estado": {
+            "type": "string",
+            "nullable": true
+          },
+          "entregaATiempo": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "idUsuario": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "RequerimientoDetalleDestinoRequestDto": {
         "type": "object",
         "properties": {
@@ -2341,26 +2911,6 @@
             "nullable": true
           },
           "destino": {
-            "type": "string",
-            "nullable": true
-          },
-          "estadoItem": {
-            "type": "string",
-            "nullable": true
-          },
-          "entregaATiempo": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "partidaNombre": {
-            "type": "string",
-            "nullable": true
-          },
-          "unidadNombre": {
-            "type": "string",
-            "nullable": true
-          },
-          "itemNombre": {
             "type": "string",
             "nullable": true
           }
@@ -2464,6 +3014,9 @@
           "nombre": {
             "type": "string",
             "nullable": true
+          },
+          "activo": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -2471,9 +3024,16 @@
       "UnidadMedidaUpdateRequestDto": {
         "type": "object",
         "properties": {
+          "codigo": {
+            "type": "string",
+            "nullable": true
+          },
           "nombre": {
             "type": "string",
             "nullable": true
+          },
+          "activo": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

@@ -2,6 +2,7 @@ using System.Data;
 using Dapper;
 using Chavez_Logistica.Entities.Logistica;
 using Chavez_Logistica.Interfaces;
+using Microsoft.Data.SqlClient;
 
 namespace Chavez_Logistica.Repositorys;
 
@@ -56,46 +57,17 @@ public class RequerimientoRepository : IRequerimientoRepository
         IEnumerable<RequerimientoDetalle> detalle,
         CancellationToken ct)
     {
+        var detalleList = detalle?.ToList() ?? new List<RequerimientoDetalle>();
         using var conn = _db.CreateConnection();
 
-        var dt = new DataTable();
-        dt.Columns.Add("IdItem", typeof(int));
-        dt.Columns.Add("IdPartida", typeof(int));
-        dt.Columns.Add("Cantidad", typeof(decimal));
-        dt.Columns.Add("IdUnidadMedida", typeof(int));
-        dt.Columns.Add("Comentario", typeof(string));
-        dt.Columns.Add("Observacion", typeof(string));
-
-        foreach (var d in detalle)
+        try
         {
-            var row = dt.NewRow();
-            row["IdItem"] = d.IdItem;
-            row["IdPartida"] = d.IdPartida.HasValue ? d.IdPartida.Value : DBNull.Value;
-            row["Cantidad"] = d.Cantidad;
-            row["IdUnidadMedida"] = d.IdUnidadMedida.HasValue ? d.IdUnidadMedida.Value : DBNull.Value;
-            row["Comentario"] = string.IsNullOrWhiteSpace(d.Comentario) ? DBNull.Value : d.Comentario;
-            row["Observacion"] = string.IsNullOrWhiteSpace(d.Observacion) ? DBNull.Value : d.Observacion;
-            dt.Rows.Add(row);
+            return await EjecutarCrearAsync(conn, idObra, observacion, idUsuario, CrearDetalleTableV2(detalleList), "logistica.TVP_RequerimientoDetalle_V2", ct);
         }
-
-        var p = new DynamicParameters();
-        p.Add("@IdObra", idObra);
-        p.Add("@Observacion", observacion);
-        p.Add("@IdUsuario", idUsuario);
-        p.Add("@Detalle", dt.AsTableValuedParameter("logistica.TVP_RequerimientoDetalle_V2"));
-        p.Add("@IdRequerimiento", dbType: DbType.Int32, direction: ParameterDirection.Output);
-        p.Add("@Codigo", dbType: DbType.String, size: 30, direction: ParameterDirection.Output);
-
-        await conn.ExecuteAsync(
-            new CommandDefinition(
-                "logistica.usp_Requerimiento_Crear",
-                p,
-                commandType: CommandType.StoredProcedure,
-                cancellationToken: ct
-            )
-        );
-
-        return (p.Get<int>("@IdRequerimiento"), p.Get<string>("@Codigo"));
+        catch (SqlException ex) when (DebeUsarTvpLegado(ex))
+        {
+            return await EjecutarCrearAsync(conn, idObra, observacion, idUsuario, CrearDetalleTableLegado(detalleList), "logistica.TVP_RequerimientoDetalle", ct);
+        }
     }
 
     public async Task CambiarEstadoAsync(
@@ -103,7 +75,6 @@ public class RequerimientoRepository : IRequerimientoRepository
         string estado,
         int? idUsuario,
         string? observacion,
-        bool? entregaATiempo,
         CancellationToken ct)
     {
         using var conn = _db.CreateConnection();
@@ -115,8 +86,7 @@ public class RequerimientoRepository : IRequerimientoRepository
                     IdRequerimiento = idRequerimiento,
                     Estado = estado,
                     IdUsuario = idUsuario,
-                    Observacion = observacion,
-                    EntregaATiempo = entregaATiempo
+                    Observacion = observacion
                 },
                 commandType: CommandType.StoredProcedure,
                 cancellationToken: ct
@@ -166,5 +136,88 @@ public class RequerimientoRepository : IRequerimientoRepository
                 cancellationToken: ct
             )
         );
+    }
+
+    private static async Task<(int IdRequerimiento, string Codigo)> EjecutarCrearAsync(
+        System.Data.IDbConnection conn,
+        int idObra,
+        string? observacion,
+        int? idUsuario,
+        DataTable detalle,
+        string tvpName,
+        CancellationToken ct)
+    {
+        var p = new DynamicParameters();
+        p.Add("@IdObra", idObra);
+        p.Add("@Observacion", observacion);
+        p.Add("@IdUsuario", idUsuario);
+        p.Add("@Detalle", detalle.AsTableValuedParameter(tvpName));
+        p.Add("@IdRequerimiento", dbType: DbType.Int32, direction: ParameterDirection.Output);
+        p.Add("@Codigo", dbType: DbType.String, size: 30, direction: ParameterDirection.Output);
+
+        await conn.ExecuteAsync(
+            new CommandDefinition(
+                "logistica.usp_Requerimiento_Crear",
+                p,
+                commandType: CommandType.StoredProcedure,
+                cancellationToken: ct
+            )
+        );
+
+        return (p.Get<int>("@IdRequerimiento"), p.Get<string>("@Codigo"));
+    }
+
+    private static DataTable CrearDetalleTableV2(IEnumerable<RequerimientoDetalle> detalle)
+    {
+        var dt = new DataTable();
+        dt.Columns.Add("IdItem", typeof(int));
+        dt.Columns.Add("IdPartida", typeof(int));
+        dt.Columns.Add("Cantidad", typeof(decimal));
+        dt.Columns.Add("IdUnidadMedida", typeof(int));
+        dt.Columns.Add("Comentario", typeof(string));
+        dt.Columns.Add("Observacion", typeof(string));
+
+        foreach (var d in detalle)
+        {
+            var row = dt.NewRow();
+            row["IdItem"] = d.IdItem;
+            row["IdPartida"] = d.IdPartida.HasValue ? d.IdPartida.Value : DBNull.Value;
+            row["Cantidad"] = d.Cantidad;
+            row["IdUnidadMedida"] = d.IdUnidadMedida.HasValue ? d.IdUnidadMedida.Value : DBNull.Value;
+            row["Comentario"] = string.IsNullOrWhiteSpace(d.Comentario) ? DBNull.Value : d.Comentario;
+            row["Observacion"] = string.IsNullOrWhiteSpace(d.Observacion) ? DBNull.Value : d.Observacion;
+            dt.Rows.Add(row);
+        }
+
+        return dt;
+    }
+
+    private static DataTable CrearDetalleTableLegado(IEnumerable<RequerimientoDetalle> detalle)
+    {
+        var dt = new DataTable();
+        dt.Columns.Add("IdItem", typeof(int));
+        dt.Columns.Add("Cantidad", typeof(decimal));
+        dt.Columns.Add("Observacion", typeof(string));
+
+        foreach (var d in detalle)
+        {
+            var row = dt.NewRow();
+            row["IdItem"] = d.IdItem;
+            row["Cantidad"] = d.Cantidad;
+            row["Observacion"] = string.IsNullOrWhiteSpace(d.Observacion)
+                ? (string.IsNullOrWhiteSpace(d.Comentario) ? DBNull.Value : d.Comentario)
+                : d.Observacion;
+            dt.Rows.Add(row);
+        }
+
+        return dt;
+    }
+
+    private static bool DebeUsarTvpLegado(SqlException ex)
+    {
+        var msg = ex.Message ?? string.Empty;
+        return msg.Contains("table-valued parameter", StringComparison.OrdinalIgnoreCase)
+            || msg.Contains("TVP_RequerimientoDetalle", StringComparison.OrdinalIgnoreCase)
+            || msg.Contains("requires 3 column", StringComparison.OrdinalIgnoreCase);
     }
 }

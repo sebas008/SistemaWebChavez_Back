@@ -7,27 +7,8 @@ public interface IRequerimientoRepository
     Task<IEnumerable<Requerimiento>> ListAsync(int? idObra, string? estado, CancellationToken ct);
     Task<Requerimiento?> GetByIdAsync(int idRequerimiento, CancellationToken ct);
     Task<IEnumerable<RequerimientoDetalle>> Detalle_ListByRequerimientoAsync(int idRequerimiento, CancellationToken ct);
-    Task<(int IdRequerimiento, string Codigo)> CrearAsync(
-        int idObra,
-        string? observacion,
-        int? idUsuario,
-        IEnumerable<RequerimientoDetalle> detalle,
-        CancellationToken ct);
-    Task CambiarEstadoAsync(
-        int idRequerimiento,
-        string estado,
-        int? idUsuario,
-        string? observacion,
-        bool? entregaATiempo,
-        CancellationToken ct);
-    Task AsignarDestinoDetalleAsync(
-        int idRequerimientoDetalle,
-        string? destino,
-        int? idUsuario,
-        CancellationToken ct);
-    Task CambiarEstadoDetalleAsync(
-        int idRequerimientoDetalle,
-        string estado,
-        bool? entregaATiempo,
-        CancellationToken ct);
+    Task<(int IdRequerimiento,string Codigo)> CrearAsync(int idObra,string? observacion,int? idUsuario,IEnumerable<RequerimientoDetalle> detalle,CancellationToken ct);
+    Task CambiarEstadoAsync(int idRequerimiento,string estado,int? idUsuario,string? observacion,CancellationToken ct);
+    Task AsignarDestinoDetalleAsync(int idRequerimientoDetalle, string? destino, int? idUsuario, CancellationToken ct);
+    Task CambiarEstadoDetalleAsync(int idRequerimientoDetalle, string estado, bool? entregaATiempo, CancellationToken ct);
 }

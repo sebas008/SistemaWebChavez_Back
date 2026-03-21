@@ -1,4 +1,5 @@
-﻿using Chavez_Logistica.Dtos.Maestros.Obras;
+using Chavez_Logistica.Dtos.Maestros.Obras;
+using Chavez_Logistica.Dtos.Maestros.Partidas;
 using Chavez_Logistica.Dtos.Maestros.Proveedor;
 using Chavez_Logistica.Dtos.Maestros.UnidadMedida;
 using Chavez_Logistica.Interfaces;
@@ -13,18 +14,20 @@ public class MaestrosController : ControllerBase
     private readonly IUnidadMedidaService _unidadMedidaService;
     private readonly IObraService _obraService;
     private readonly IProveedorService _proveedorService;
+    private readonly IPartidaService _partidaService;
 
     public MaestrosController(
-     IUnidadMedidaService unidadMedidaService,
-     IObraService obraService,
-     IProveedorService proveedorService)
+        IUnidadMedidaService unidadMedidaService,
+        IObraService obraService,
+        IProveedorService proveedorService,
+        IPartidaService partidaService)
     {
         _unidadMedidaService = unidadMedidaService;
         _obraService = obraService;
         _proveedorService = proveedorService;
+        _partidaService = partidaService;
     }
 
-    // -------- UNIDAD MEDIDA --------
     [HttpGet("unidades-medida")]
     public async Task<ActionResult<List<UnidadMedidaDto>>> UnidadMedida_List(CancellationToken ct)
         => Ok(await _unidadMedidaService.ListAsync(ct));
@@ -47,8 +50,6 @@ public class MaestrosController : ControllerBase
         return NoContent();
     }
 
-
-    // -------- OBRA --------
     [HttpGet("obras")]
     public async Task<ActionResult<List<ObraDto>>> Obra_List([FromQuery] bool? soloActivas, CancellationToken ct)
         => Ok(await _obraService.ListAsync(soloActivas, ct));
@@ -71,7 +72,6 @@ public class MaestrosController : ControllerBase
         return NoContent();
     }
 
-    // -------- PROVEEDOR --------
     [HttpGet("proveedores")]
     public async Task<ActionResult<List<ProveedorDto>>> Proveedor_List([FromQuery] bool? soloActivos, CancellationToken ct)
         => Ok(await _proveedorService.ListAsync(soloActivos, ct));
@@ -94,5 +94,25 @@ public class MaestrosController : ControllerBase
         return NoContent();
     }
 
+    [HttpGet("partidas")]
+    public async Task<ActionResult<List<PartidaDto>>> Partida_List([FromQuery] bool? soloActivas, CancellationToken ct)
+        => Ok(await _partidaService.ListAsync(soloActivas, ct));
 
+    [HttpGet("partidas/{id:int}")]
+    public async Task<ActionResult<PartidaDto>> Partida_GetById(int id, CancellationToken ct)
+    {
+        var row = await _partidaService.GetByIdAsync(id, ct);
+        return row == null ? NotFound() : Ok(row);
+    }
+
+    [HttpPost("partidas")]
+    public async Task<ActionResult<PartidaCreateResponseDto>> Partida_Crear([FromBody] PartidaCreateRequestDto req, CancellationToken ct)
+        => Ok(await _partidaService.CrearAsync(req, ct));
+
+    [HttpPut("partidas/{id:int}")]
+    public async Task<IActionResult> Partida_Actualizar(int id, [FromBody] PartidaUpdateRequestDto req, CancellationToken ct)
+    {
+        await _partidaService.ActualizarAsync(id, req, ct);
+        return NoContent();
+    }
 }

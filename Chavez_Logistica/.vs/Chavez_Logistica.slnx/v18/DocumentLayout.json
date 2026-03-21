@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2A76FECC-D4FB-E518-E28F-C6D3A2E7EC73}|Chavez_Logistica.csproj|c:\\users\\sebas\\desktop\\choti\\sistemawebchavez_back\\sistemawebchavez_back\\chavez_logistica\\controllers\\maestroscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A76FECC-D4FB-E518-E28F-C6D3A2E7EC73}|Chavez_Logistica.csproj|solutionrelative:controllers\\maestroscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2A76FECC-D4FB-E518-E28F-C6D3A2E7EC73}|Chavez_Logistica.csproj|c:\\users\\sebas\\desktop\\choti\\sistemawebchavez_back\\sistemawebchavez_back\\chavez_logistica\\repositorys\\obrarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2A76FECC-D4FB-E518-E28F-C6D3A2E7EC73}|Chavez_Logistica.csproj|solutionrelative:repositorys\\obrarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -18,15 +22,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MaestrosController.cs",
+              "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Controllers\\MaestrosController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MaestrosController.cs",
+              "ToolTip": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Controllers\\MaestrosController.cs",
+              "RelativeToolTip": "Controllers\\MaestrosController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAIAwwHIAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-20T18:45:08.867Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ObraService.cs",
               "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Services\\ObraService.cs",
               "RelativeDocumentMoniker": "Services\\ObraService.cs",
@@ -38,16 +51,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ObraRepository.cs",
               "DocumentMoniker": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Repositorys\\ObraRepository.cs",
               "RelativeDocumentMoniker": "Repositorys\\ObraRepository.cs",
               "ToolTip": "C:\\Users\\sebas\\Desktop\\Choti\\SistemaWebChavez_Back\\SistemaWebChavez_Back\\Chavez_Logistica\\Repositorys\\ObraRepository.cs",
               "RelativeToolTip": "Repositorys\\ObraRepository.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAqwA8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwDQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-18T19:12:34.098Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-18T19:12:34.098Z"
             }
           ]
         }

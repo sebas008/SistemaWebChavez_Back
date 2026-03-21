@@ -1,16 +1,11 @@
-﻿namespace Chavez_Logistica.Dtos.Inventario.Kardex
-{
-    public class KardexDto
-    {
-        public int IdKardex { get; set; }
-        public DateTime Fecha { get; set; }
-        public int IdAlmacen { get; set; }
-        public int IdItem { get; set; }
-        public string TipoMov { get; set; } = null!;
-        public decimal Cantidad { get; set; }
-        public string? Referencia { get; set; }
-        public string? Observacion { get; set; }
-        public int? IdUsuario { get; set; }
+namespace Chavez_Logistica.Dtos.Inventario.Kardex;
 
-    }
+public class KardexDto
+{
+    public DateTime Fecha { get; set; }
+    public string? TipoMovimiento { get; set; }
+    public int IdAlmacen { get; set; }
+    public int IdItem { get; set; }
+    public decimal Cantidad { get; set; }
+    public string? Referencia { get; set; }
 }

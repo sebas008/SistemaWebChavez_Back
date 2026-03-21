@@ -1,4 +1,4 @@
-﻿using Chavez_Logistica.Entities;
+using Chavez_Logistica.Entities;
 using Chavez_Logistica.Interfaces;
 using Dapper;
 using System.Data;
@@ -48,13 +48,19 @@ public class UnidadMedidaRepository : IUnidadMedidaRepository
         );
     }
 
-    public async Task ActualizarAsync(int idUnidadMedida, string nombre, CancellationToken ct)
+    public async Task ActualizarAsync(int idUnidadMedida, UnidadMedida entity, CancellationToken ct)
     {
         using var conn = _db.CreateConnection();
         await conn.ExecuteAsync(
             new CommandDefinition(
                 "maestros.usp_UnidadMedida_Actualizar",
-                new { IdUnidadMedida = idUnidadMedida, Nombre = nombre },
+                new
+                {
+                    IdUnidadMedida = idUnidadMedida,
+                    Codigo = string.IsNullOrWhiteSpace(entity.Codigo) ? null : entity.Codigo,
+                    Nombre = entity.Nombre,
+                    Activo = entity.Activo
+                },
                 commandType: CommandType.StoredProcedure,
                 cancellationToken: ct
             )

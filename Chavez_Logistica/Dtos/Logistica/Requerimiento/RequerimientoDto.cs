@@ -1,7 +1,4 @@
-using System;
-
 namespace Chavez_Logistica.Dtos.Logistica.Requerimiento;
-
 public class RequerimientoDto
 {
     public int IdRequerimiento { get; set; }

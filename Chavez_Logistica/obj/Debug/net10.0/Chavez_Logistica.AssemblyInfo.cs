@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Chavez_Logistica")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f006f2005ae70cc38e7bb3a0c2d77d53900b68e1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aeb420e5605f57310228eefabed23db5a284d75c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Chavez_Logistica")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Chavez_Logistica")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

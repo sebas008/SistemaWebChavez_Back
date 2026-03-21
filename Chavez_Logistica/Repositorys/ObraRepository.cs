@@ -8,79 +8,45 @@ namespace Chavez_Logistica.Repositorys;
 public class ObraRepository : IObraRepository
 {
     private readonly IDbConnectionFactory _db;
+    public ObraRepository(IDbConnectionFactory db) => _db = db;
 
-    public ObraRepository(IDbConnectionFactory db)
-    {
-        _db = db;
-    }
-
-    public async Task<IEnumerable<Obra>> ListAsync(bool? soloActivas, CancellationToken ct)
+    public async Task<IEnumerable<Obra>> ListAsync(bool? soloActivos, CancellationToken ct)
     {
         using var conn = _db.CreateConnection();
-
-        var data = await conn.QueryAsync<Obra>(
-            new CommandDefinition(
-                "maestros.usp_Obra_List",
-                commandType: CommandType.StoredProcedure,
-                cancellationToken: ct
-            )
-        );
-
-        if (!soloActivas.HasValue)
-            return data;
-
-        return data.Where(x => x.Activa == soloActivas.Value).ToList();
+        return await conn.QueryAsync<Obra>(new CommandDefinition(
+            "maestros.usp_Obra_List",
+            new { SoloActivos = soloActivos },
+            commandType: CommandType.StoredProcedure,
+            cancellationToken: ct));
     }
 
-    public async Task<Obra?> GetByIdAsync(int id, CancellationToken ct)
+    public async Task<Obra?> GetByIdAsync(int idObra, CancellationToken ct)
     {
         using var conn = _db.CreateConnection();
-
-        return await conn.QueryFirstOrDefaultAsync<Obra>(
-            new CommandDefinition(
-                "maestros.usp_Obra_GetById",
-                new { IdObra = id },
-                commandType: CommandType.StoredProcedure,
-                cancellationToken: ct
-            )
-        );
+        return await conn.QueryFirstOrDefaultAsync<Obra>(new CommandDefinition(
+            "maestros.usp_Obra_GetById",
+            new { IdObra = idObra },
+            commandType: CommandType.StoredProcedure,
+            cancellationToken: ct));
     }
 
     public async Task<int> CrearAsync(Obra entity, CancellationToken ct)
     {
         using var conn = _db.CreateConnection();
-
-        return await conn.QuerySingleAsync<int>(
-            new CommandDefinition(
-                "maestros.usp_Obra_Crear",
-                new
-                {
-                    Codigo = entity.Codigo,
-                    Nombre = entity.Nombre
-                },
-                commandType: CommandType.StoredProcedure,
-                cancellationToken: ct
-            )
-        );
+        return await conn.QuerySingleAsync<int>(new CommandDefinition(
+            "maestros.usp_Obra_Crear",
+            new { Codigo = entity.Codigo, Nombre = entity.Nombre },
+            commandType: CommandType.StoredProcedure,
+            cancellationToken: ct));
     }
 
-    public async Task ActualizarAsync(int id, Obra entity, CancellationToken ct)
+    public async Task ActualizarAsync(int idObra, Obra entity, CancellationToken ct)
     {
         using var conn = _db.CreateConnection();
-
-        await conn.ExecuteAsync(
-            new CommandDefinition(
-                "maestros.usp_Obra_Actualizar",
-                new
-                {
-                    IdObra = id,
-                    Codigo = entity.Codigo,
-                    Nombre = entity.Nombre,
-                    Activa = entity.Activa
-                },
-                commandType: CommandType.StoredProcedure,
-                cancellationToken: ct
-            )
-        );
+        await conn.ExecuteAsync(new CommandDefinition(
+            "maestros.usp_Obra_Actualizar",
+            new { IdObra = idObra, Codigo = entity.Codigo, Nombre = entity.Nombre, Activo = entity.Activa },
+            commandType: CommandType.StoredProcedure,
+            cancellationToken: ct));
     }
 }

@@ -1,4 +1,4 @@
-﻿using Chavez_Logistica.Entities;
+using Chavez_Logistica.Entities;
 
 namespace Chavez_Logistica.Interfaces
 {
@@ -7,6 +7,6 @@ namespace Chavez_Logistica.Interfaces
         Task<IEnumerable<UnidadMedida>> ListAsync(CancellationToken ct);
         Task<UnidadMedida?> GetByIdAsync(int idUnidadMedida, CancellationToken ct);
         Task<int> CrearAsync(UnidadMedida entity, CancellationToken ct);
-        Task ActualizarAsync(int idUnidadMedida, string nombre, CancellationToken ct);
+        Task ActualizarAsync(int idUnidadMedida, UnidadMedida entity, CancellationToken ct);
     }
 }

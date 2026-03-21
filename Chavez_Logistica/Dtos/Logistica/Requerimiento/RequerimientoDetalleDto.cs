@@ -10,9 +10,4 @@ public class RequerimientoDetalleDto
     public string? Comentario { get; set; }
     public string? Observacion { get; set; }
     public string? Destino { get; set; }
-    public string? EstadoItem { get; set; }
-    public bool? EntregaATiempo { get; set; }
-    public string? PartidaNombre { get; set; }
-    public string? UnidadNombre { get; set; }
-    public string? ItemNombre { get; set; }
 }

@@ -27,6 +27,26 @@
   },
   {
     "ContainingType": "Chavez_Logistica.Controllers.DashboardController",
+    "Method": "GetIndicadores",
+    "RelativePath": "api/Dashboard/indicadores-requerimientos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Chavez_Logistica.Controllers.DashboardController\u002BDashboardIndicadoresDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Chavez_Logistica.Controllers.DashboardController",
     "Method": "GetKpis",
     "RelativePath": "api/Dashboard/kpis",
     "HttpMethod": "GET",
@@ -312,7 +332,7 @@
   },
   {
     "ContainingType": "Chavez_Logistica.Controllers.LogisticaController",
-    "Method": "Atenciones_Bandeja",
+    "Method": "Atencion_Bandeja",
     "RelativePath": "api/logistica/atenciones-bandeja",
     "HttpMethod": "GET",
     "IsController": true,
@@ -332,7 +352,7 @@
   },
   {
     "ContainingType": "Chavez_Logistica.Controllers.LogisticaController",
-    "Method": "Compras_Bandeja",
+    "Method": "Compra_Bandeja",
     "RelativePath": "api/logistica/compras-bandeja",
     "HttpMethod": "GET",
     "IsController": true,
@@ -349,6 +369,110 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Chavez_Logistica.Controllers.LogisticaController",
+    "Method": "OrdenFinal_List",
+    "RelativePath": "api/logistica/ordenes-finales",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idObra",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "estado",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Chavez_Logistica.Dtos.Logistica.OrdenFinal.OrdenFinalDto, Chavez_Logistica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Chavez_Logistica.Controllers.LogisticaController",
+    "Method": "OrdenFinal_Crear",
+    "RelativePath": "api/logistica/ordenes-finales",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "Chavez_Logistica.Dtos.Logistica.OrdenFinal.OrdenFinalCreateRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Chavez_Logistica.Dtos.Logistica.OrdenFinal.OrdenFinalCreateResponseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Chavez_Logistica.Controllers.LogisticaController",
+    "Method": "OrdenFinal_Get",
+    "RelativePath": "api/logistica/ordenes-finales/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Chavez_Logistica.Dtos.Logistica.OrdenFinal.OrdenFinalDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Chavez_Logistica.Controllers.LogisticaController",
+    "Method": "OrdenFinal_Estado",
+    "RelativePath": "api/logistica/ordenes-finales/{id}/estado",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "req",
+        "Type": "Chavez_Logistica.Dtos.Logistica.OrdenFinal.OrdenFinalCambiarEstadoRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Chavez_Logistica.Controllers.LogisticaController",
@@ -490,7 +614,7 @@
       },
       {
         "Name": "req",
-        "Type": "Chavez_Logistica.Dtos.Logistica.Requerimiento.RequerimientoCambiarEstadoRequestDto",
+        "Type": "Chavez_Logistica.Dtos.Logistica.Requerimiento.RequerimientoDetalleCambiarEstadoRequestDto",
         "IsRequired": true
       }
     ],
@@ -590,6 +714,105 @@
       {
         "Name": "req",
         "Type": "Chavez_Logistica.Dtos.Maestros.Obras.ObraUpdateRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chavez_Logistica.Controllers.MaestrosController",
+    "Method": "Partida_List",
+    "RelativePath": "api/maestros/partidas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "soloActivas",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Chavez_Logistica.Dtos.Maestros.Partidas.PartidaDto, Chavez_Logistica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Chavez_Logistica.Controllers.MaestrosController",
+    "Method": "Partida_Crear",
+    "RelativePath": "api/maestros/partidas",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "Chavez_Logistica.Dtos.Maestros.Partidas.PartidaCreateRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Chavez_Logistica.Dtos.Maestros.Partidas.PartidaCreateResponseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Chavez_Logistica.Controllers.MaestrosController",
+    "Method": "Partida_GetById",
+    "RelativePath": "api/maestros/partidas/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Chavez_Logistica.Dtos.Maestros.Partidas.PartidaDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Chavez_Logistica.Controllers.MaestrosController",
+    "Method": "Partida_Actualizar",
+    "RelativePath": "api/maestros/partidas/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "req",
+        "Type": "Chavez_Logistica.Dtos.Maestros.Partidas.PartidaUpdateRequestDto",
         "IsRequired": true
       }
     ],

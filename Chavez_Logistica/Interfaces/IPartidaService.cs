@@ -1,7 +1,5 @@
-using Chavez_Logistica.Dtos.Maestros.Partida;
-
+using Chavez_Logistica.Dtos.Maestros.Partidas;
 namespace Chavez_Logistica.Interfaces;
-
 public interface IPartidaService
 {
     Task<List<PartidaDto>> ListAsync(bool? soloActivas, CancellationToken ct);

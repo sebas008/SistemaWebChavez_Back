@@ -9,5 +9,5 @@ public interface IRequerimientoService
     Task<RequerimientoCreateResponseDto> CrearAsync(RequerimientoCreateRequestDto req, CancellationToken ct);
     Task CambiarEstadoAsync(int idRequerimiento, RequerimientoCambiarEstadoRequestDto req, CancellationToken ct);
     Task AsignarDestinoDetalleAsync(int idRequerimientoDetalle, RequerimientoDetalleDestinoRequestDto req, CancellationToken ct);
-    Task CambiarEstadoDetalleAsync(int idRequerimientoDetalle, RequerimientoCambiarEstadoRequestDto req, CancellationToken ct);
+    Task CambiarEstadoDetalleAsync(int idRequerimientoDetalle, RequerimientoDetalleCambiarEstadoRequestDto req, CancellationToken ct);
 }
